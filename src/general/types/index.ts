@@ -12,6 +12,9 @@ export interface IErrorBoundryState {
 export interface IErrorBoundryProps {
   children?: ReactNode;
 }
+
 export interface IDefaultThemeProps {
   color: Record<string, string>;
+  backgroundColor: Record<string, string>;
+  headingColor: Record<string, string>;
 }

@@ -2,8 +2,8 @@ import { IDefaultThemeProps } from "general";
 
 export const defaultTheme: IDefaultThemeProps = {
   color: {
-    primary: "#1B9BD7",
-    secondary: "#1D1D1D",
+    primary: "#548798",
+    secondary: "#6e6e6e",
     global: "#F2F4FF",
     white: "#FFFFFF",
     black: "#000000",
@@ -22,5 +22,12 @@ export const defaultTheme: IDefaultThemeProps = {
     blue: "#1E7FE0",
     lightBlue: "#DDEEFF",
     blackLighter: "#333333", // for cross icon border and stroke
+  },
+  backgroundColor: {
+    primary: "#e9f5fb",
+  },
+  headingColor: {
+    primary: "#548798",
+    secondary: "#4d4d4d",
   },
 };
