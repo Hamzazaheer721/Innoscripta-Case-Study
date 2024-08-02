@@ -1,0 +1,40 @@
+.error-boundry-container {
+  background-color: #95c2de;
+  font-family: "Nunito Sans", sans-serif;
+}
+
+.mainbox {
+  margin: auto;
+  min-height: 60rem;
+  max-width: 60rem;
+  position: relative;
+  letter-spacing: 0.05rem;
+}
+
+.mainbox__error--text {
+  gap: 0.5rem;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 11rem;
+  position: absolute;
+  top: 20%;
+  left: 35%;
+}
+
+.mainbox__error--message {
+  text-align: center;
+  font-size: 1.6rem;
+  position: absolute;
+  left: 16%;
+  top: 45%;
+  width: 75%;
+}
+
+.mainbox__error--passage-anchor {
+  text-decoration: none;
+  color: white;
+  transition: 0.4s ease-in;
+}

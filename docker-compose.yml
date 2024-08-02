@@ -1,0 +1,13 @@
+services:
+  app:
+    container_name: docker-react-c
+    image: docker-react-i
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - BROWSER=none
+      - NODE_ENV=development
+    ports:
+      - 8080:8080
+    command: npm run dev
