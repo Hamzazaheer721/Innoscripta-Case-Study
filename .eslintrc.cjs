@@ -3,30 +3,30 @@ module.exports = {
     browser: true,
     node: true,
     es2021: true,
-    jest: true
+    jest: true,
   },
   parser: "@typescript-eslint/parser",
   parserOptions: {
     ecmaVersion: 2020,
     sourceType: "module",
     ecmaFeatures: {
-      jsx: true
-    }
+      jsx: true,
+    },
   },
   settings: {
     react: {
-      version: "detect"
+      version: "detect",
     },
     "import/resolver": {
       typescript: {
-        project: "./tsconfig.json"
-      }
-    }
+        project: "./tsconfig.json",
+      },
+    },
   },
   extends: [
     "eslint:recommended",
     "plugin:react/recommended",
-    "plugin:@typescript-eslint/recommended"
+    "plugin:@typescript-eslint/recommended",
   ],
   plugins: ["react", "@typescript-eslint"],
   rules: {
@@ -36,30 +36,30 @@ module.exports = {
     "react/jsx-filename-extension": [
       1,
       {
-        extensions: [".js", ".jsx", ".ts", ".tsx"]
-      }
+        extensions: [".js", ".jsx", ".ts", ".tsx"],
+      },
     ],
     "import/prefer-default-export": "off",
     "react/function-component-definition": [
       "error",
       {
         namedComponents: ["function-declaration", "arrow-function"],
-        unnamedComponents: "arrow-function"
-      }
+        unnamedComponents: "arrow-function",
+      },
     ],
     quotes: [
       "error",
       "double",
       {
-        avoidEscape: true
-      }
+        avoidEscape: true,
+      },
     ],
     "@typescript-eslint/quotes": [
       "error",
       "double",
       {
-        avoidEscape: true
-      }
+        avoidEscape: true,
+      },
     ],
     // "jsx-quotes": ["error", "prefer-double"],
     "react/jsx-props-no-spreading": ["off"],
@@ -71,10 +71,11 @@ module.exports = {
     "react/jsx-one-expression-per-line": [
       "off",
       {
-        allow: "single-child"
-      }
+        allow: "single-child",
+      },
     ],
     "react/no-unescaped-entities": ["off"],
-    "@typescript-eslint/indent": ["off"]
-  }
-}
+    "@typescript-eslint/indent": ["off"],
+    "@typescript-eslint/no-explicit-any": "off",
+  },
+};
