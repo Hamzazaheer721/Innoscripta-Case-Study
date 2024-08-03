@@ -18,3 +18,9 @@ export interface IDefaultThemeProps {
   backgroundColor: Record<string, string>;
   headingColor: Record<string, string>;
 }
+
+/* API URL Arguements */
+export interface GetNewsApiURLType {
+  country?: string;
+  category?: string;
+}

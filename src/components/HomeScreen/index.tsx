@@ -1,9 +1,9 @@
 import { FC, memo } from "react";
 import { HomeContainer } from "./index.styled";
-import { Heading } from "styles";
+import Carousel from "components/Carousel";
 
 export const HomeScreen: FC = memo(() => (
   <HomeContainer>
-    <Heading secondary>Latest News</Heading>
+    <Carousel />
   </HomeContainer>
 ));
