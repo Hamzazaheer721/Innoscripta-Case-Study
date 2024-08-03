@@ -1,4 +1,5 @@
 import { FunctionComponent, ReactNode } from "react";
+import { RootState } from "redux/types/rootTypes";
 
 export type RoutesType = {
   path: string;
@@ -13,12 +14,14 @@ export interface IErrorBoundryProps {
   children?: ReactNode;
 }
 
+export type Thunk = any;
+export type RootReducerType = (state: any, action: any) => RootState;
+
 export interface IDefaultThemeProps {
   color: Record<string, string>;
   backgroundColor: Record<string, string>;
   headingColor: Record<string, string>;
 }
-
 /* API URL Arguements */
 export interface GetNewsApiURLType {
   country?: string;
