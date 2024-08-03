@@ -1,5 +1,10 @@
 import { Heading } from "styles";
-import { CarouselContainer, CarouselWrapper } from "./index.styled";
+import {
+  CarouselContainer,
+  CarouselWrapper,
+  ContentBlockSection,
+  ContentContainer,
+} from "./index.styled";
 import { Carousel } from "antd";
 import { CarouselCard } from "./components";
 import { memo, useEffect } from "react";
@@ -23,22 +28,25 @@ const CarouselSection = memo(() => {
   return (
     <CarouselContainer>
       <Heading secondary>Latest News</Heading>
-      <CarouselWrapper>
-        <Carousel arrows>
-          <div>
-            <CarouselCard />
-          </div>
-          <div>
-            <CarouselCard />
-          </div>
-          <div>
-            <CarouselCard />
-          </div>
-          <div>
-            <CarouselCard />
-          </div>
-        </Carousel>
-      </CarouselWrapper>
+      <ContentContainer>
+        <CarouselWrapper>
+          <Carousel arrows>
+            <div>
+              <CarouselCard />
+            </div>
+            <div>
+              <CarouselCard />
+            </div>
+            <div>
+              <CarouselCard />
+            </div>
+            <div>
+              <CarouselCard />
+            </div>
+          </Carousel>
+        </CarouselWrapper>{" "}
+        <ContentBlockSection>hey</ContentBlockSection>
+      </ContentContainer>
     </CarouselContainer>
   );
 });

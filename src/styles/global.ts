@@ -16,5 +16,8 @@ export const GlobalStyle = createGlobalStyle`
 
   body {
     font-family: sans-serif;
+    box-sizing: border-box; 
+    line-height: 1.7;
+    font-weight: 400;
   }
 `;
