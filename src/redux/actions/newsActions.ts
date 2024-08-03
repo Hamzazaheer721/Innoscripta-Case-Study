@@ -1,11 +1,13 @@
 import {
   NewsActionType,
+  NewsLoadersType,
   NewsReducerType,
   NewsType,
   ResetNewsAction,
   SetCarouselNews,
   SetFullNews,
   SetNewsAction,
+  SetNewsLoaders,
 } from "redux/types/newsTypes";
 
 export const resetNewsState = (): ResetNewsAction => ({
@@ -26,5 +28,10 @@ export const setCarouselNews = (
   payload: NewsType[] | null,
 ): SetCarouselNews => ({
   type: NewsActionType.SET_CAROUSEL_NEWS,
+  payload,
+});
+
+export const setNewsLoaders = (payload: NewsLoadersType): SetNewsLoaders => ({
+  type: NewsActionType.SET_NEWS_LOADERS,
   payload,
 });

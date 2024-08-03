@@ -7,24 +7,9 @@ import {
 } from "./index.styled";
 import { Carousel } from "antd";
 import { CarouselCard } from "./components";
-import { memo, useEffect } from "react";
-import axios from "axios";
-import { getGuardianAPIURL } from "config";
+import { memo } from "react";
 
 const CarouselSection = memo(() => {
-  const getApi = async () => {
-    try {
-      const { data } = await axios.get(getGuardianAPIURL());
-
-      console.info({ data });
-    } catch (error) {
-      console.error({ error });
-    }
-  };
-
-  useEffect(() => {
-    getApi();
-  }, []);
   return (
     <CarouselContainer>
       <Heading secondary>Latest News</Heading>

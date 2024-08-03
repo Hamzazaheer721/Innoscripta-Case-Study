@@ -1,4 +1,5 @@
 import { FunctionComponent, ReactNode } from "react";
+import { store } from "redux/store";
 import { RootState } from "redux/types/rootTypes";
 
 export type RoutesType = {
@@ -14,6 +15,7 @@ export interface IErrorBoundryProps {
   children?: ReactNode;
 }
 
+export type AppDispatch = typeof store.dispatch;
 export type Thunk = any;
 export type RootReducerType = (state: any, action: any) => RootState;
 
