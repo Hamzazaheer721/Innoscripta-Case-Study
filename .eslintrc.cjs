@@ -77,5 +77,6 @@ module.exports = {
     "react/no-unescaped-entities": ["off"],
     "@typescript-eslint/indent": ["off"],
     "@typescript-eslint/no-explicit-any": "off",
+    "react/prop-types": 0,
   },
 };

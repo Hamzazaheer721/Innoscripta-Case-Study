@@ -1,8 +1,8 @@
+import { NewsArticle } from "general";
 import {
   NewsActionType,
   NewsLoadersType,
   NewsReducerType,
-  NewsType,
   ResetNewsAction,
   SetCarouselNews,
   SetFullNews,
@@ -19,13 +19,13 @@ export const setNewsState = (payload: NewsReducerType): SetNewsAction => ({
   payload,
 });
 
-export const setFullNews = (payload: NewsType[] | null): SetFullNews => ({
+export const setFullNews = (payload: NewsArticle[] | null): SetFullNews => ({
   type: NewsActionType.SET_FULL_NEWS,
   payload,
 });
 
 export const setCarouselNews = (
-  payload: NewsType[] | null,
+  payload: NewsArticle[] | null,
 ): SetCarouselNews => ({
   type: NewsActionType.SET_CAROUSEL_NEWS,
   payload,

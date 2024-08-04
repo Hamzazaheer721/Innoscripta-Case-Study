@@ -8,30 +8,31 @@ import {
 import { Carousel } from "antd";
 import { CarouselCard } from "./components";
 import { memo } from "react";
+import { useCarouselSection } from "./index.hook";
+import { NewsArticle } from "general";
 
 const CarouselSection = memo(() => {
+  const { state } = useCarouselSection();
+
   return (
     <CarouselContainer>
       <Heading secondary>Latest News</Heading>
-      <ContentContainer>
-        <CarouselWrapper>
-          <Carousel arrows>
-            <div>
-              <CarouselCard />
-            </div>
-            <div>
-              <CarouselCard />
-            </div>
-            <div>
-              <CarouselCard />
-            </div>
-            <div>
-              <CarouselCard />
-            </div>
-          </Carousel>
-        </CarouselWrapper>{" "}
-        <ContentBlockSection>hey</ContentBlockSection>
-      </ContentContainer>
+      {!!state?.length && (
+        <ContentContainer>
+          <CarouselWrapper>
+            <Carousel arrows>
+              {state?.map((article: NewsArticle, idx: number) => {
+                return (
+                  <div key={String(idx)}>
+                    <CarouselCard article={article} />
+                  </div>
+                );
+              })}
+            </Carousel>
+          </CarouselWrapper>{" "}
+          <ContentBlockSection>hey</ContentBlockSection>
+        </ContentContainer>
+      )}
     </CarouselContainer>
   );
 });

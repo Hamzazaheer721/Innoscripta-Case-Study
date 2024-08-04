@@ -1,3 +1,4 @@
+import { NewsArticle } from "general";
 import { Action } from "redux";
 
 export type NewsLoadersType = {
@@ -7,11 +8,9 @@ export type NewsLoadersType = {
   newsApiMainloader: boolean;
 };
 
-export type NewsType = Record<string, any>;
-
 export type NewsReducerType = {
-  carouselNews: NewsType[] | null;
-  fullNews: NewsType[] | null;
+  carouselNews: NewsArticle[] | null;
+  fullNews: NewsArticle[] | null;
   loaders: NewsLoadersType;
 };
 
@@ -35,12 +34,12 @@ export interface SetNewsAction extends Action {
 
 export interface SetFullNews extends Action {
   type: NewsActionType.SET_FULL_NEWS;
-  payload: NewsType[] | null;
+  payload: NewsArticle[] | null;
 }
 
 export interface SetCarouselNews extends Action {
   type: NewsActionType.SET_CAROUSEL_NEWS;
-  payload: NewsType[] | null;
+  payload: NewsArticle[] | null;
 }
 
 export interface SetNewsLoaders extends Action {
