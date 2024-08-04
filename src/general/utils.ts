@@ -73,12 +73,13 @@ export const parseDate = (dateStr: string) => {
 
 export const sanitizeTheGuardianData = (data: Record<string, any>[]) => {
   return data?.map((article, idx: number) => {
-    const imgKey = ((article?.pillerName?.toLowerCase() as string) ??
+    const imgKey = ((article?.pillarName?.toLowerCase() as string) ??
       "news") as string;
 
     const urlToImg = (IMAGE_KEYS_URL as Record<string, string>)[
       imgKey
     ] as string;
+    console.info({ urlToImg, imgKey: article.pillarName.toLowerCase() });
     const publishedAt = parseDate(
       article?.webPublicationDate ?? new Date().toISOString(),
     );

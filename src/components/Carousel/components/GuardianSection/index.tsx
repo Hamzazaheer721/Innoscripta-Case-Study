@@ -2,26 +2,46 @@ import { Carousel } from "antd";
 import { FC, memo } from "react";
 import {
   GuardianCarouselCardContainer,
+  GuardianCarouselCardTitle,
+  GuardianCarouselDate,
+  GuardianCarouselImageAnchor,
+  GuardianCarouselImg,
   GuardianCarouselWrapper,
   GuardianContainer,
 } from "./index.styled";
 import { useGuardianCarousel } from "./index.hook";
+import { defaultURL } from "general";
+import { Heading } from "styles";
 
-export const GuardianCarouselCard: FC<any> = memo(() => {
-  return (
-    <GuardianCarouselCardContainer>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis quasi,
-      deleniti fugiat ullam fugit consequatur quia necessitatibus a ipsam dolor
-      accusantium quidem sint magni. Reiciendis minima illum laboriosam deleniti
-      nesciunt?
-    </GuardianCarouselCardContainer>
-  );
-});
+interface IGuardianCarouselCardProps {
+  article: Record<string, string>;
+}
+export const GuardianCarouselCard: FC<IGuardianCarouselCardProps> = memo(
+  ({ article }) => {
+    const { urlToImg, publishedAt, category, url, title } = article;
+    return (
+      <GuardianCarouselCardContainer>
+        <Heading color={"darkRed"}>{category}</Heading>
+        <GuardianCarouselImageAnchor
+          href={url ?? defaultURL}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <GuardianCarouselImg
+            src={urlToImg ?? ""}
+            alt={`gCarousel-${article?.author ?? "Author"}`}
+            loading="lazy"
+          />
+        </GuardianCarouselImageAnchor>
+        <GuardianCarouselCardTitle>{title}</GuardianCarouselCardTitle>
+        <GuardianCarouselDate>{publishedAt}</GuardianCarouselDate>
+      </GuardianCarouselCardContainer>
+    );
+  },
+);
 
 export const GuardianSection = memo(() => {
   const { state } = useGuardianCarousel();
-
-  console.info({ state });
   return (
     <GuardianContainer>
       <GuardianCarouselWrapper>
@@ -36,7 +56,7 @@ export const GuardianSection = memo(() => {
           autoplaySpeed={2500}
           dotPosition="right"
         >
-          {state?.map((article: any, idx: number) => {
+          {state?.map((article: Record<string, string>, idx: number) => {
             return (
               <div key={`Guardian-card-${idx}`}>
                 <GuardianCarouselCard article={article} />
