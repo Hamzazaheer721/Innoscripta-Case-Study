@@ -1,18 +1,15 @@
 import { NewsArticle, sanitizeData } from "general";
-import { useAppDispatch, useAppLoader } from "hooks";
+import { useAppLoader } from "hooks";
 import { useCallback, useEffect } from "react";
 import { setNewsState } from "redux/actions/newsActions";
 import { NewsReducerType } from "redux/types/newsTypes";
 import { NewsApiService } from "services";
 
 export const useHomeScreen = () => {
-  const { startLoading, stopLoading, loaders } = useAppLoader();
+  const { startLoading, stopLoading, loaders, dispatch } = useAppLoader();
 
-  const dispatch = useAppDispatch();
-
-  const setDataIntoGlobalState = (payload: NewsReducerType) => {
+  const setDataIntoGlobalState = (payload: NewsReducerType) =>
     dispatch(setNewsState(payload));
-  };
 
   const fetchNewsData = useCallback(async () => {
     try {

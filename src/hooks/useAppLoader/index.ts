@@ -28,5 +28,6 @@ export const useAppLoader = () => {
     startLoading,
     stopLoading,
     loaders,
+    dispatch,
   };
 };
