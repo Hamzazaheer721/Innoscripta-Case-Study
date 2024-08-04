@@ -9,7 +9,6 @@ const getGuardianData = async () => {
     let data = response?.data || {};
     data = data?.response?.results;
     data = sanitizeTheGuardianData(data);
-    console.info({ data });
     return data;
   } catch (error) {
     console.error("Error fetching data:", error);

@@ -79,7 +79,6 @@ export const sanitizeTheGuardianData = (data: Record<string, any>[]) => {
     const urlToImg = (IMAGE_KEYS_URL as Record<string, string>)[
       imgKey
     ] as string;
-    console.info({ urlToImg, imgKey: article.pillarName.toLowerCase() });
     const publishedAt = parseDate(
       article?.webPublicationDate ?? new Date().toISOString(),
     );
