@@ -20,7 +20,7 @@ const CarouselSection = memo(() => {
       {!!state?.length && (
         <ContentContainer>
           <CarouselWrapper>
-            <Carousel arrows>
+            <Carousel arrows autoplay fade>
               {state?.map((article: NewsArticle, idx: number) => {
                 return (
                   <div key={String(idx)}>

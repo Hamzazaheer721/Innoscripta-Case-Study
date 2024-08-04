@@ -1,5 +1,5 @@
 import { NewsArticle } from "general";
-import { CarouselCardContainer } from "./index.styled";
+import { CarouselCardContainer, CarouselImg } from "./index.styled";
 import { FC, memo } from "react";
 
 interface ICarouselCard {
@@ -7,6 +7,15 @@ interface ICarouselCard {
 }
 
 export const CarouselCard: FC<ICarouselCard> = memo(({ article }) => {
-  console.info({ article });
-  return <CarouselCardContainer>const</CarouselCardContainer>;
+  // console.info({ article });
+  return (
+    <CarouselCardContainer>
+      <CarouselImg
+        src={article?.urlToImage ?? ""}
+        alt={article?.author ?? "Author"}
+        loading="lazy"
+      />
+      <h1>asdasdasd</h1>
+    </CarouselCardContainer>
+  );
 });

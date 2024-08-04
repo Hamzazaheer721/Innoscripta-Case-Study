@@ -22,28 +22,38 @@ export const getRandomNumberInRange = (min: number, max: number) => {
 export const sanitizeData = (data: NewsArticle[]) => {
   const indices: number[] = [];
 
-  const updatedData: NewsArticle[] = data
-    ?.map((obj) => {
-      let content = obj?.content;
+  const imgToUrlObjectIdx = data?.findIndex((obj) => !!obj.urlToImage);
 
-      if (!content) {
-        let randomIdx = getRandomNumberInRange(0, mockContent.length - 1);
-        while (indices.includes(randomIdx)) {
-          randomIdx = getRandomNumberInRange(0, mockContent.length - 1);
-        }
-        indices.push(randomIdx);
-        content = mockContent[randomIdx];
+  let updatedData: NewsArticle[] = data?.filter(
+    (obj: NewsArticle) => !!obj?.author && !!obj?.source?.id,
+  );
+  updatedData = updatedData.slice();
+
+  if (imgToUrlObjectIdx >= 0) {
+    const obj = data?.[imgToUrlObjectIdx];
+    updatedData.splice(imgToUrlObjectIdx, 1);
+    updatedData.unshift(obj);
+  }
+
+  updatedData = updatedData?.map((obj) => {
+    let content = obj?.content;
+
+    if (!content) {
+      let randomIdx = getRandomNumberInRange(0, mockContent.length - 1);
+      while (indices.includes(randomIdx)) {
+        randomIdx = getRandomNumberInRange(0, mockContent.length - 1);
       }
+      indices.push(randomIdx);
+      content = mockContent[randomIdx];
+    }
 
-      const updatedObj = {
-        ...obj,
-        urlToImage: obj?.urlToImage ?? defaultImageURL,
-        content,
-      };
+    const updatedObj = {
+      ...obj,
+      urlToImage: obj?.urlToImage ?? defaultImageURL,
+      content,
+    };
 
-      return updatedObj;
-    })
-    ?.filter((obj: NewsArticle) => !!obj?.author);
-
+    return updatedObj;
+  });
   return updatedData;
 };
