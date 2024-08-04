@@ -1,10 +1,10 @@
 import { createStore, applyMiddleware, compose, Store } from "redux";
 import { PersistConfig, persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import thunk from "redux-thunk";
 import { RootState } from "./types/rootTypes";
 import RootReducer from "./reducers/rootReducer";
 import { Thunk } from "general";
+import { thunk } from "redux-thunk";
 
 const persistConfig: PersistConfig<RootState> = {
   key: "root",

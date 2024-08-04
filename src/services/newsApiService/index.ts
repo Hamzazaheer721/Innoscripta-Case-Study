@@ -5,8 +5,8 @@ export class NewsApiService {
   static getTopHeadlines = async () => {
     try {
       const targetURL = NEWS_API.getTopHeadlines();
-      const data = await axios.get(targetURL);
-      return data;
+      const response = await axios.get(targetURL);
+      return response?.data;
     } catch (error) {
       console.error("Error - News Api Service  getGenericNewsData ", {
         error,
