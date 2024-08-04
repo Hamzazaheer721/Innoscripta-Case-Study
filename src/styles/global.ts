@@ -1,4 +1,5 @@
 import { createGlobalStyle } from "styled-components";
+import { device } from "./devices";
 
 export const GlobalStyle = createGlobalStyle`
   *,
@@ -19,5 +20,28 @@ export const GlobalStyle = createGlobalStyle`
     box-sizing: border-box; 
     line-height: 1.7;
     font-weight: 400;
+  }
+  
+  .ant-carousel .slick-prev, 
+  .ant-carousel .slick-next {
+    color: #548798;
+    z-index: 1; /* Ensure arrows are above other elements */
+    font-size: 2.4rem; 
+  }
+
+  /* Change the background color of the dots */
+  .ant-carousel .slick-dots li button {
+    background: #548798;
+  }
+
+  /* Change the background color of the active dot */
+  .ant-carousel .slick-dots li.slick-active button {
+    background: #548798;
+  }
+
+  @media ${device.mobileAndBelow} {
+     .ant-carousel .slick-dots {
+      display: none !important;
+     }
   }
 `;

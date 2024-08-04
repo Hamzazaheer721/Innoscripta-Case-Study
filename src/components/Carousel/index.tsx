@@ -16,11 +16,19 @@ const CarouselSection = memo(() => {
 
   return (
     <CarouselContainer>
-      <Heading secondary>Latest News</Heading>
+      <Heading color="red">Latest News</Heading>
       {!!state?.length && (
         <ContentContainer>
           <CarouselWrapper>
-            <Carousel arrows autoplay fade>
+            <Carousel
+              autoplay
+              draggable
+              adaptiveHeight
+              lazyLoad="progressive"
+              speed={1500}
+              swipe
+              autoplaySpeed={2500}
+            >
               {state?.map((article: NewsArticle, idx: number) => {
                 return (
                   <div key={String(idx)}>

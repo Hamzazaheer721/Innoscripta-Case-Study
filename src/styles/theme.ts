@@ -22,6 +22,7 @@ export const defaultTheme: IDefaultThemeProps = {
     blue: "#1E7FE0",
     lightBlue: "#DDEEFF",
     blackLighter: "#333333", // for cross icon border and stroke
+    darkRed: "#C70000",
   },
   backgroundColor: {
     primary: "#e9f5fb",

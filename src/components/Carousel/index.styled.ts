@@ -6,6 +6,9 @@ export const CarouselContainer = styled.div`
   flex-direction: column;
   gap: 2rem;
   width: 100%;
+  @media ${device.mobileAndBelow} {
+    align-items: center;
+  }
 `;
 
 export const ContentContainer = styled.div`

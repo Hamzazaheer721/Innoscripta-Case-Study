@@ -1,6 +1,7 @@
 import { defaultImageURL } from "./constants";
 import mockContent from "assets/data/content.json";
 import { NewsArticle } from "./types";
+import dayjs from "dayjs";
 
 export const addQueryParamsToUrl = (
   baseUrl: string,
@@ -17,6 +18,10 @@ export const addQueryParamsToUrl = (
 
 export const getRandomNumberInRange = (min: number, max: number) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
+export const removeBracketedContent = (str: string) => {
+  return str.replace(/\[.*?\]/g, "");
 };
 
 export const sanitizeData = (data: NewsArticle[]) => {
@@ -47,6 +52,8 @@ export const sanitizeData = (data: NewsArticle[]) => {
       content = mockContent[randomIdx];
     }
 
+    content = removeBracketedContent(content);
+
     const updatedObj = {
       ...obj,
       urlToImage: obj?.urlToImage ?? defaultImageURL,
@@ -56,4 +63,10 @@ export const sanitizeData = (data: NewsArticle[]) => {
     return updatedObj;
   });
   return updatedData;
+};
+
+export const parseDate = (dateStr: string) => {
+  const formattedDate = dayjs(dateStr).format("MMMM D, YYYY h:mm A");
+
+  return formattedDate;
 };

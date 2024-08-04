@@ -1,6 +1,6 @@
-import { useCarouselNews } from "hooks";
+import { useAppSelector } from "hooks";
 
 export const useCarouselSection = () => {
-  const state = useCarouselNews();
+  const state = useAppSelector((state) => state.news.carouselNews);
   return { state };
 };
