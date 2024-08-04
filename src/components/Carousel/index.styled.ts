@@ -26,11 +26,16 @@ export const CarouselWrapper = styled.div`
   width: calc(70% - 1.5rem);
 
   @media ${device.mobileAndBelow} {
-    width: 80%;
+    width: 100%;
     align-self: center;
   }
 `;
 
 export const ContentBlockSection = styled.div`
-  flex: 1 0 calc(30%- 1.5rem);
+  width: calc(30% - 1.5rem);
+  flex-grow: 1;
+  @media ${device.mobileAndBelow} {
+    width: 100%;
+    align-self: center;
+  }
 `;

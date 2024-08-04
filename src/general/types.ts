@@ -15,6 +15,11 @@ export interface IErrorBoundryProps {
   children?: ReactNode;
 }
 
+export interface IApiError {
+  message: string;
+  description: string;
+  statusCode: string | number;
+}
 export type AppDispatch = ThunkDispatch<RootState, void, any>;
 export type Thunk = any;
 export type RootReducerType = (state: any, action: any) => RootState;

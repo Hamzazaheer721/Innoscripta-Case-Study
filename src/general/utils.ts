@@ -1,4 +1,4 @@
-import { defaultImageURL } from "./constants";
+import { defaultImageURL, defaultURL, IMAGE_KEYS_URL } from "./constants";
 import mockContent from "assets/data/content.json";
 import { NewsArticle } from "./types";
 import dayjs from "dayjs";
@@ -69,4 +69,28 @@ export const parseDate = (dateStr: string) => {
   const formattedDate = dayjs(dateStr).format("MMMM D, YYYY h:mm A");
 
   return formattedDate;
+};
+
+export const sanitizeTheGuardianData = (data: Record<string, any>[]) => {
+  return data?.map((article, idx: number) => {
+    const imgKey = ((article?.pillerName?.toLowerCase() as string) ??
+      "news") as string;
+
+    const urlToImg = (IMAGE_KEYS_URL as Record<string, string>)[
+      imgKey
+    ] as string;
+    const publishedAt = parseDate(
+      article?.webPublicationDate ?? new Date().toISOString(),
+    );
+    const category = article?.pillarName;
+    const url = article?.webUrl ?? defaultURL;
+    const title = article?.webTitle ?? mockContent[idx];
+    return {
+      urlToImg,
+      publishedAt,
+      category,
+      url,
+      title,
+    };
+  });
 };

@@ -50,6 +50,9 @@ export const CarouselCardTitle = styled.h4`
   font-size: 1.6rem;
   text-align: left;
   color: ${({ theme }) => theme.headingColor.secondary};
+  @media (${device.mobileAndBelow}) {
+    text-align: center;
+  }
 `;
 
 export const CarouselCardContent = styled.p`

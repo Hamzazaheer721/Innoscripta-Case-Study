@@ -6,7 +6,7 @@ import {
   ContentContainer,
 } from "./index.styled";
 import { Carousel } from "antd";
-import { CarouselCard } from "./components";
+import { CarouselCard, GuardianSection } from "./components";
 import { memo } from "react";
 import { useCarouselSection } from "./index.hook";
 import { NewsArticle } from "general";
@@ -16,7 +16,8 @@ const CarouselSection = memo(() => {
 
   return (
     <CarouselContainer>
-      <Heading color="red">Latest News</Heading>
+      <Heading color="darkRed">Headlines</Heading>
+
       {!!state?.length && (
         <ContentContainer>
           <CarouselWrapper>
@@ -38,7 +39,9 @@ const CarouselSection = memo(() => {
               })}
             </Carousel>
           </CarouselWrapper>{" "}
-          <ContentBlockSection>hey</ContentBlockSection>
+          <ContentBlockSection>
+            <GuardianSection />
+          </ContentBlockSection>
         </ContentContainer>
       )}
     </CarouselContainer>

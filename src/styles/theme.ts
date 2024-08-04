@@ -22,10 +22,11 @@ export const defaultTheme: IDefaultThemeProps = {
     blue: "#1E7FE0",
     lightBlue: "#DDEEFF",
     blackLighter: "#333333", // for cross icon border and stroke
-    darkRed: "#C70000",
+    darkRed: "rgb(184, 0, 0)",
   },
   backgroundColor: {
-    primary: "#e9f5fb",
+    primary: "#f6f6f6 ",
+    secondary: "#e9f5fb",
   },
   headingColor: {
     primary: "#548798",

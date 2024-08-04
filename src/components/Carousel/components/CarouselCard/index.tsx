@@ -16,7 +16,6 @@ interface ICarouselCard {
 }
 
 export const CarouselCard: FC<ICarouselCard> = memo(({ article }) => {
-  console.info({ article });
   return (
     <CarouselCardContainer>
       {" "}
