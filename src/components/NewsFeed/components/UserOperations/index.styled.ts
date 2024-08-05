@@ -68,6 +68,9 @@ export const Container = styled.div`
 
     & > ${InputField} {
       width: 100%;
+      &::placeholder {
+        text-align: center;
+      }
     }
 
     .ant-input {
