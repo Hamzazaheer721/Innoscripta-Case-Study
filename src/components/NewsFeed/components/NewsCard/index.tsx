@@ -38,8 +38,12 @@ export const NewsCard: FC<INewsCardProps> = memo(({ article }) => {
           <b>Source: </b>
           <NewsAuthorName>
             {" "}
-            {article?.source?.name ?? "Google News"}
+            {(article?.source as string) ?? "Google News"}
           </NewsAuthorName>
+        </NewsFooter>
+        <NewsFooter>
+          <b>Category: </b>
+          <NewsAuthorName> {article?.category}</NewsAuthorName>
         </NewsFooter>
         <NewsFooter>
           <b>Author: </b>

@@ -31,7 +31,7 @@ export const sanitizeData = (data: NewsArticle[]) => {
   const imgToUrlObjectIdx = data?.findIndex((obj) => !!obj.urlToImage);
 
   let updatedData: NewsArticle[] = data?.filter(
-    (obj: NewsArticle) => !!obj?.author && !!obj?.source?.id,
+    (obj: NewsArticle) => !!obj?.author && !!(obj?.source as Source)?.id,
   );
   updatedData = updatedData.slice();
 
@@ -197,6 +197,10 @@ export const getUniqueOptions = (
   return uniqueArray;
 };
 
+export const capitalizeString = (str: string) => {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+};
+
 export const getOptions = (options: string[]) => {
   const options_ = options?.map((option) => {
     return {
@@ -208,21 +212,17 @@ export const getOptions = (options: string[]) => {
   return getUniqueOptions(options_);
 };
 
-export const getSourceOptions = (options: Source[]) => {
+export const getSourceOptions = (options: string[]) => {
   const options_ = options
-    ?.filter((option) => !!option.name && !!option.id)
+    ?.filter((option) => !!option)
     ?.map((option) => {
       return {
-        label: option.name as string,
-        value: option.id as string,
+        label: capitalizeString(option) as string,
+        value: option as string,
       };
     });
 
   return getUniqueOptions(options_);
-};
-
-export const capitalizeString = (str: string) => {
-  return str.charAt(0).toUpperCase() + str.slice(1);
 };
 
 export const getCategoryOptions = () => {

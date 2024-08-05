@@ -1,7 +1,6 @@
 import {
   DateRangeHandleChangeType,
   DatesType,
-  getCategoryOptions,
   getOptions,
   getSourceOptions,
   sanitizePayloadForApi,
@@ -30,18 +29,26 @@ export const useUserOperations = () => {
   const options = useMemo(() => {
     const authors =
       fullNews
-        ?.map((article) => article.author ?? "")
+        ?.map((article) => {
+          let author = article.author ?? "";
+          author = author.replace("By", "").trim();
+          return author;
+        })
         .filter((author) => !!author) ?? [];
 
-    const sources =
-      fullNews
-        ?.filter((article) => !!article?.source?.id && !!article?.source?.name)
-        ?.map((article) => article.source)
-        ?.filter((source) => !!source) ?? [];
+    const sources = (fullNews
+      ?.filter((article) => !!article?.source)
+      ?.map((article) => article.source)
+      ?.filter((source) => !!source) ?? []) as string[];
+
+    const categories = (fullNews
+      ?.filter((article) => !!article?.category)
+      ?.map((article) => article.category)
+      ?.filter((category) => !!category) ?? []) as string[];
 
     const authorOptions = getOptions(authors);
     const sourceOptions = getSourceOptions(sources);
-    const categoryOptions = getCategoryOptions();
+    const categoryOptions = getOptions(categories);
 
     return { authorOptions, sourceOptions, categoryOptions };
   }, [fullNews]);

@@ -46,7 +46,7 @@ export interface NewsArticle {
   content: string | null;
   description: string | null;
   publishedAt: string | null;
-  source: Source | null;
+  source: string | Source | null;
   title: string | null;
   url: string | null;
   urlToImage: string | null;
