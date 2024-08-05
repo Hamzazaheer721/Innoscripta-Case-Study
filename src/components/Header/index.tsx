@@ -1,7 +1,8 @@
 import { Heading } from "styles";
 import { Navbar, NavItem, Section } from "./index.styled";
+import { memo } from "react";
 
-const Header = () => {
+const Header = memo(() => {
   return (
     <Section>
       <Heading>Innoscripta</Heading>
@@ -10,6 +11,6 @@ const Header = () => {
       </Navbar>
     </Section>
   );
-};
+});
 
 export default Header;
