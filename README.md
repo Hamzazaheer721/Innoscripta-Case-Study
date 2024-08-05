@@ -1,4 +1,4 @@
-# Documentation
+# Case Study Documentation
 
 ## Environment Setup
 
