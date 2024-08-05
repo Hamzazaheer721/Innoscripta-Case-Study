@@ -1,1 +1,8 @@
-
+- Documentation
+- The app needs .env file to be setup because all the keys are stored there for security.
+- To run with docker
+    - Docker should be installed, if docker desktop is installed then it should be running and user should be logged in.
+    - run the following command
+    - docker compose up --build
+    - This will build, install and run the vite app
+    - the app will be running on http://localhost:8080/
