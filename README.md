@@ -1,4 +1,4 @@
-# Case Study Documentation
+# Case Study Documentation - Innoscripta
 
 ## Environment Setup
 
@@ -23,3 +23,7 @@
 
 3. **Access the App**:
    - The app will be available at [http://localhost:8080/](http://localhost:8080/).
+
+4. **Deployment Information**:
+   - The app is deployed on [Netlify](https://peppy-selkie-8360f6.netlify.app/).
+   - **Note**: Due to CORS restrictions imposed by API providers on the hosted link, APIs may not work as expected.
