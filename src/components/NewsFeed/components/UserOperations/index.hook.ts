@@ -3,27 +3,39 @@ import {
   DatesType,
   getOptions,
   getSourceOptions,
-  sanitizePayloadForApi,
+  NewsArticle,
   SelectFieldHandleChangeType,
 } from "general";
-import { ChangeEvent, useLayoutEffect, useMemo, useRef, useState } from "react";
+import {
+  ChangeEvent,
+  useCallback,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { initialUserOptionsState, UserOperationsType } from "./helper";
-import { InputRef } from "antd";
-import { useAppSelector } from "hooks";
+// import { InputRef } from "antd";
+import { useAppDispatch, useAppSelector } from "hooks";
+import { cloneDeep, debounce } from "lodash";
+import { setFilteredNews } from "redux/actions/newsActions";
 
 export const useUserOperations = () => {
   const [state, setState] = useState<UserOperationsType>(
     () => initialUserOptionsState,
   );
 
-  const searchFieldRef = useRef<InputRef>(null);
+  const searchFieldRef = useRef<HTMLInputElement>(null);
 
   const fullNews = useAppSelector((state) => state.news.fullNews);
+  const filteredNews = useAppSelector((state) => state.news.filteredNews);
+
+  console.info({ filteredNews });
+  const dispatch = useAppDispatch();
 
   useLayoutEffect(() => {
     if (!searchFieldRef.current) return;
-    if (!searchFieldRef?.current?.input) return;
-    searchFieldRef.current.input.value = "";
+    searchFieldRef.current.value = "";
   }, []);
 
   const options = useMemo(() => {
@@ -53,16 +65,34 @@ export const useUserOperations = () => {
     return { authorOptions, sourceOptions, categoryOptions };
   }, [fullNews]);
 
-  const makeApiCall = async (payload: UserOperationsType = state) => {
-    const updatedPayload = sanitizePayloadForApi(payload);
-    console.info({ updatedPayload });
-    try {
-      const response = true;
-      console.info({ response });
-    } catch (error) {
-      console.error({ error });
-    }
-  };
+  const setFilteredNamesGlobally = (payload: NewsArticle[]) =>
+    dispatch(setFilteredNews(payload));
+
+  const resetFullNamesGlobally = () => dispatch(setFilteredNews(fullNews));
+
+  const filterGlobalState = useCallback(
+    (updatedState: UserOperationsType = state) => {
+      let draft = cloneDeep(fullNews);
+
+      if (!draft) return;
+
+      const { searchValue } = updatedState;
+      if (searchValue) {
+        draft = draft?.filter(
+          (article) =>
+            article.content
+              ?.toLowerCase()
+              ?.includes(searchValue.toLowerCase().trim()) ||
+            article.title
+              ?.toLowerCase()
+              ?.includes(searchValue.toLowerCase().trim()),
+        );
+      }
+
+      setFilteredNamesGlobally(draft);
+    },
+    [state, fullNews],
+  );
 
   const handleCategoryChange: SelectFieldHandleChangeType = (value, option) => {
     console.info({ value, option });
@@ -73,8 +103,7 @@ export const useUserOperations = () => {
       ...state,
       categoryOption: value,
     };
-
-    makeApiCall(updatedState);
+    filterGlobalState(updatedState);
   };
 
   const handleSourceChange: SelectFieldHandleChangeType = (value, option) => {
@@ -86,8 +115,7 @@ export const useUserOperations = () => {
       ...state,
       sourceOption: value,
     };
-
-    makeApiCall(updatedState);
+    filterGlobalState(updatedState);
   };
 
   const handleAuthorChange: SelectFieldHandleChangeType = (value, option) => {
@@ -99,8 +127,7 @@ export const useUserOperations = () => {
       ...state,
       authorOption: value,
     };
-
-    makeApiCall(updatedState);
+    filterGlobalState(updatedState);
   };
 
   /* Gives dates in string */
@@ -119,11 +146,10 @@ export const useUserOperations = () => {
       ...state,
       dateRange: updatedDate,
     };
-
-    makeApiCall(updatedState);
+    filterGlobalState(updatedState);
   };
 
-  const handleKeywordChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleKeywordChange = debounce((e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
 
     setState((prev) => ({
@@ -136,17 +162,22 @@ export const useUserOperations = () => {
       searchValue: value,
     };
 
-    makeApiCall(updatedState);
-  };
+    if (!value) {
+      resetFullNamesGlobally();
+      return;
+    }
+
+    filterGlobalState(updatedState);
+  }, 1000);
 
   const handleClick = () => {
-    if (searchFieldRef?.current?.input) {
-      searchFieldRef.current.input.value = "";
+    if (searchFieldRef?.current) {
+      searchFieldRef.current.value = "";
     }
     setState(() => ({
       ...initialUserOptionsState,
     }));
-    makeApiCall();
+    resetFullNamesGlobally();
   };
 
   return {

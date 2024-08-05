@@ -16,6 +16,7 @@ const NewsReducer: Reducer<NewsReducerType, NewsActions> = (
       return {
         carouselNews: null,
         fullNews: null,
+        filteredNews: null,
         loaders: {
           appLoader: false,
           guardianNewsLoader: false,
@@ -34,6 +35,14 @@ const NewsReducer: Reducer<NewsReducerType, NewsActions> = (
       return {
         ...state,
         fullNews: fullNews,
+      };
+    }
+    case NewsActionType.SET_FILTERED_NEWS: {
+      const fullNews =
+        action.payload?.filter((article) => !!article?.author) ?? null;
+      return {
+        ...state,
+        filteredNews: fullNews,
       };
     }
     case NewsActionType.SET_CAROUSEL_NEWS:

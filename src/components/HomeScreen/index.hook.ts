@@ -3,14 +3,13 @@ import {
   NewsArticle,
   sanitizeData,
   sanitizeNYTimesDataForNewsFeed,
+  testing,
 } from "general";
 import { useAppLoader } from "hooks";
 import { useCallback, useEffect } from "react";
 import { setNewsState } from "redux/actions/newsActions";
 import { NewsReducerType } from "redux/types/newsTypes";
 import { NewsApiService, NewYorkTimesService } from "services";
-
-const testing = true;
 
 export const useHomeScreen = () => {
   const { startLoading, stopLoading, loaders, dispatch } = useAppLoader();
@@ -55,6 +54,7 @@ export const useHomeScreen = () => {
         loaders,
         carouselNews: data.slice(0, 4),
         fullNews: structuredClone(nyData),
+        filteredNews: structuredClone(nyData),
       };
       setDataIntoGlobalState(updatedState);
     } catch (error) {

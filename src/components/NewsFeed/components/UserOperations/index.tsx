@@ -1,7 +1,12 @@
 /* eslint-disable no-constant-condition */
-import { Button, DatePicker, Input } from "antd";
+import { Button, DatePicker } from "antd";
 import { memo } from "react";
-import { Container, LowerContainer, OuterContainer } from "./index.styled";
+import {
+  Container,
+  InputField,
+  LowerContainer,
+  OuterContainer,
+} from "./index.styled";
 import { CustomSelect } from "components/Select";
 import { useUserOperations } from "./index.hook";
 
@@ -23,11 +28,11 @@ export const UserOperations = memo(() => {
   return (
     <OuterContainer>
       <Container>
-        <Input
+        <InputField
           placeholder="Search a keyword"
           onChange={handleKeywordChange}
-          value={state.searchValue}
           ref={searchFieldRef}
+          id="news-feed-search-field"
         />
         <RangePicker
           showTime

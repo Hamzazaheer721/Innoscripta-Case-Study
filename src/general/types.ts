@@ -36,6 +36,7 @@ export interface GetNewsApiURLType {
   category?: string;
 }
 
+export type GuardianResponseType = Record<string, any>;
 export interface Source {
   id: string | null;
   name: string | null;

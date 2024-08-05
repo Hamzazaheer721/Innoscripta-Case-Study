@@ -22,3 +22,12 @@ export const initialUserOptionsState: UserOperationsType = {
   sourceOption: null,
   authorOption: null,
 };
+
+export const resetField = () => {
+  const element = document.getElementById(
+    "news-feed-search-field",
+  ) as HTMLInputElement;
+
+  if (!element) return;
+  element.value = "";
+};

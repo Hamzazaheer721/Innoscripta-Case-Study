@@ -6,7 +6,7 @@ import { Heading } from "styles";
 import { UserOperations } from "./components/UserOperations";
 
 export const NewsFeed = memo(() => {
-  const state = useAppSelector((state) => state.news.fullNews);
+  const state = useAppSelector((state) => state.news.filteredNews);
 
   return (
     <Container>

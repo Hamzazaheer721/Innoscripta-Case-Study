@@ -11,6 +11,7 @@ export type NewsLoadersType = {
 export type NewsReducerType = {
   carouselNews: NewsArticle[] | null;
   fullNews: NewsArticle[] | null;
+  filteredNews: NewsArticle[] | null;
   loaders: NewsLoadersType;
 };
 
@@ -18,6 +19,7 @@ export enum NewsActionType {
   RESET_NEWS = "RESET_NEWS",
   SET_NEWS_STATE = "SET_NEWS_STATE",
   SET_FULL_NEWS = "SET_FULL_NEWS",
+  SET_FILTERED_NEWS = "SET_FILTERED_NEWS",
   SET_CAROUSEL_NEWS = "SET_CAROUSEL_NEWS",
   SET_NEWS_LOADERS = "SET_NEWS_LOADERS",
 }
@@ -47,10 +49,16 @@ export interface SetNewsLoaders extends Action {
   payload: NewsLoadersType;
 }
 
+export interface SetFilteredNews extends Action {
+  type: NewsActionType.SET_FILTERED_NEWS;
+  payload: NewsArticle[] | null;
+}
+
 // Union on all action creators to use on the reducer
 export type NewsActions =
   | ResetNewsAction
   | SetNewsAction
   | SetFullNews
   | SetCarouselNews
-  | SetNewsLoaders;
+  | SetNewsLoaders
+  | SetFilteredNews;

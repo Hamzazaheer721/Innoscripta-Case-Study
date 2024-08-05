@@ -5,6 +5,7 @@ import {
   NewsReducerType,
   ResetNewsAction,
   SetCarouselNews,
+  SetFilteredNews,
   SetFullNews,
   SetNewsAction,
   SetNewsLoaders,
@@ -21,6 +22,13 @@ export const setNewsState = (payload: NewsReducerType): SetNewsAction => ({
 
 export const setFullNews = (payload: NewsArticle[] | null): SetFullNews => ({
   type: NewsActionType.SET_FULL_NEWS,
+  payload,
+});
+
+export const setFilteredNews = (
+  payload: NewsArticle[] | null,
+): SetFilteredNews => ({
+  type: NewsActionType.SET_FILTERED_NEWS,
   payload,
 });
 
