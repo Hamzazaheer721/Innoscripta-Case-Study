@@ -30,3 +30,10 @@ export const defaultOptions = [
     label: "Cancelled",
   },
 ];
+
+export const SpinnerStylesConfig: CSSProperties = {
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  height: "100vh",
+};

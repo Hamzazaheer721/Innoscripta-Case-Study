@@ -1,4 +1,4 @@
-import { Carousel } from "antd";
+import { Carousel, Spin } from "antd";
 import { FC, memo } from "react";
 import {
   CarouselCardContainer,
@@ -12,6 +12,7 @@ import {
 import { useGuardianCarousel } from "./index.hook";
 import { defaultURL } from "general";
 import { Heading } from "styles";
+import { Loader } from "components/Loader";
 
 interface IOtherNewsCarouselCard {
   article: Record<string, string>;
@@ -42,7 +43,18 @@ export const OtherNewsCarouselCard: FC<IOtherNewsCarouselCard> = memo(
 );
 
 export const GuardianSection = memo(() => {
-  const { state } = useGuardianCarousel();
+  const { state, isLoading, error } = useGuardianCarousel();
+
+  // eslint-disable-next-line no-constant-condition
+  if (isLoading)
+    return (
+      <CarouselCardContainer>
+        <Loader height="100%" />
+      </CarouselCardContainer>
+    );
+
+  if (error) return null;
+
   return (
     <MainContainer>
       <CarouselWrapper>
