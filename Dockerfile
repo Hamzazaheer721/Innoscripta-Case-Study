@@ -13,6 +13,17 @@ RUN npm install
 # Copy the rest of the application code into the container
 COPY . .
 
+
+# Define build arguments
+ARG VITE_APP_NEWS_API_KEY
+ARG VITE_APP_GUARDIAN_API_KEY
+ARG VITE_APP_NY_TIMES_API_KEY
+
+# Set environment variables
+ENV VITE_APP_NEWS_API_KEY=$VITE_APP_NEWS_API_KEY
+ENV VITE_APP_GUARDIAN_API_KEY=$VITE_APP_GUARDIAN_API_KEY
+ENV VITE_APP_NY_TIMES_API_KEY=$VITE_APP_NY_TIMES_API_KEY
+
 # Build the application
 RUN npm run build
 
