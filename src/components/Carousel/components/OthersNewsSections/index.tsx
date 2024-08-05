@@ -1,41 +1,42 @@
 import { Carousel } from "antd";
 import { FC, memo } from "react";
 import {
-  GuardianCarouselCardContainer,
-  GuardianCarouselCardTitle,
-  GuardianCarouselDate,
-  GuardianCarouselImageAnchor,
-  GuardianCarouselImg,
-  GuardianCarouselWrapper,
-  GuardianContainer,
+  CarouselCardContainer,
+  CarouselCardTitle,
+  CarouselDate,
+  CarouselImageAnchor,
+  CarouselImg,
+  CarouselWrapper,
+  MainContainer,
 } from "./index.styled";
 import { useGuardianCarousel } from "./index.hook";
 import { defaultURL } from "general";
 import { Heading } from "styles";
 
-interface IGuardianCarouselCardProps {
+interface IOtherNewsCarouselCard {
   article: Record<string, string>;
 }
-export const GuardianCarouselCard: FC<IGuardianCarouselCardProps> = memo(
+
+export const OtherNewsCarouselCard: FC<IOtherNewsCarouselCard> = memo(
   ({ article }) => {
     const { urlToImg, publishedAt, category, url, title } = article;
     return (
-      <GuardianCarouselCardContainer>
+      <CarouselCardContainer>
         <Heading color={"darkRed"}>{category}</Heading>
-        <GuardianCarouselImageAnchor
+        <CarouselImageAnchor
           href={url ?? defaultURL}
           target="_blank"
           rel="noopener noreferrer"
         >
-          <GuardianCarouselImg
+          <CarouselImg
             src={urlToImg ?? ""}
             alt={`gCarousel-${article?.author ?? "Author"}`}
             loading="lazy"
           />
-        </GuardianCarouselImageAnchor>
-        <GuardianCarouselCardTitle>{title}</GuardianCarouselCardTitle>
-        <GuardianCarouselDate>{publishedAt}</GuardianCarouselDate>
-      </GuardianCarouselCardContainer>
+        </CarouselImageAnchor>
+        <CarouselCardTitle>{title}</CarouselCardTitle>
+        <CarouselDate>{publishedAt}</CarouselDate>
+      </CarouselCardContainer>
     );
   },
 );
@@ -43,8 +44,8 @@ export const GuardianCarouselCard: FC<IGuardianCarouselCardProps> = memo(
 export const GuardianSection = memo(() => {
   const { state } = useGuardianCarousel();
   return (
-    <GuardianContainer>
-      <GuardianCarouselWrapper>
+    <MainContainer>
+      <CarouselWrapper>
         <Carousel
           rootClassName="guardian-cls"
           autoplay
@@ -59,12 +60,12 @@ export const GuardianSection = memo(() => {
           {state?.map((article: Record<string, string>, idx: number) => {
             return (
               <div key={`Guardian-card-${idx}`}>
-                <GuardianCarouselCard article={article} />
+                <OtherNewsCarouselCard article={article} />
               </div>
             );
           })}
         </Carousel>
-      </GuardianCarouselWrapper>
-    </GuardianContainer>
+      </CarouselWrapper>
+    </MainContainer>
   );
 });

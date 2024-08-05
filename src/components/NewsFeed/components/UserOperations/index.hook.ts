@@ -1,6 +1,7 @@
 import {
   DateRangeHandleChangeType,
   DatesType,
+  getCategoryOptions,
   getOptions,
   getSourceOptions,
   sanitizePayloadForApi,
@@ -40,8 +41,9 @@ export const useUserOperations = () => {
 
     const authorOptions = getOptions(authors);
     const sourceOptions = getSourceOptions(sources);
+    const categoryOptions = getCategoryOptions();
 
-    return { authorOptions, sourceOptions };
+    return { authorOptions, sourceOptions, categoryOptions };
   }, [fullNews]);
 
   console.info({ options });

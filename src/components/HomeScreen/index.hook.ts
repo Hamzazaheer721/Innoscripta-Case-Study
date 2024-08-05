@@ -3,7 +3,7 @@ import { useAppLoader } from "hooks";
 import { useCallback, useEffect } from "react";
 import { setNewsState } from "redux/actions/newsActions";
 import { NewsReducerType } from "redux/types/newsTypes";
-import { NewsApiService } from "services";
+import { NewsApiService, NewYorkTimesService } from "services";
 
 export const useHomeScreen = () => {
   const { startLoading, stopLoading, loaders, dispatch } = useAppLoader();
@@ -15,6 +15,8 @@ export const useHomeScreen = () => {
     try {
       startLoading();
       const data_ = await NewsApiService.getTopHeadlines();
+      const data_two = await NewYorkTimesService.getGenericNewsData();
+      console.info({ data_two, data: data_.articles });
       if (!data_ || !data_?.articles) return;
       const data = sanitizeData(data_?.articles as NewsArticle[]);
       const updatedState: NewsReducerType = {

@@ -159,3 +159,23 @@ export const getSourceOptions = (options: Source[]) => {
 
   return getUniqueOptions(options_);
 };
+
+export const capitalizeString = (str: string) => {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+};
+
+export const getCategoryOptions = () => {
+  const categories = [
+    "business",
+    "entertainment",
+    "general",
+    "health",
+    "science",
+    "sports",
+    "technology",
+  ];
+  return categories.map((category) => ({
+    label: capitalizeString(category),
+    value: category,
+  }));
+};

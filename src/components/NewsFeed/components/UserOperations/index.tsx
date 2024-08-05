@@ -38,6 +38,7 @@ export const UserOperations = memo(() => {
           placeholder="Search to Select Category"
           onChange={handleCategoryChange}
           value={state.categoryOption}
+          options={options.categoryOptions}
         />
         <CustomSelect
           placeholder="Search to Select Source"

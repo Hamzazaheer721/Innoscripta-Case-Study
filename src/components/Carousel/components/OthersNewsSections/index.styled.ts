@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { device } from "styles";
 
-export const GuardianContainer = styled.div`
+export const MainContainer = styled.div`
   min-height: 50rem;
   color: #fff;
   line-height: 150%;
@@ -25,14 +25,14 @@ export const GuardianContainer = styled.div`
   }
 `;
 
-export const GuardianCarouselWrapper = styled.div`
+export const CarouselWrapper = styled.div`
   display: flex;
   width: 100%;
 
   @media ${device.mobileAndBelow} {
   }
 `;
-export const GuardianCarouselCardContainer = styled.div`
+export const CarouselCardContainer = styled.div`
   padding: 2rem 3rem;
   border-radius: 0.6rem;
   background: ${({ theme }) => theme.backgroundColor.secondary};
@@ -54,7 +54,7 @@ export const GuardianCarouselCardContainer = styled.div`
   }
 `;
 
-export const GuardianCarouselCardTitle = styled.h4`
+export const CarouselCardTitle = styled.h4`
   all: unset;
   width: 100%;
   font-weight: 600;
@@ -66,8 +66,9 @@ export const GuardianCarouselCardTitle = styled.h4`
   }
 `;
 
-export const GuardianCarouselImageAnchor = styled.a``;
-export const GuardianCarouselImg = styled.img`
+export const CarouselImageAnchor = styled.a``;
+
+export const CarouselImg = styled.img`
   aspect-ratio: 16/9;
   width: 100%;
   height: 20rem;
@@ -89,7 +90,7 @@ export const GuardianCarouselImg = styled.img`
   }
 `;
 
-export const GuardianCarouselCardContent = styled.p`
+export const CarouselCardContent = styled.p`
   all: unset;
   width: 100%;
   font-weight: 400;
@@ -118,4 +119,5 @@ export const GuardianCarouselCardContent = styled.p`
     max-height: calc(1.2rem * 1.5 * 3);
   }
 `;
-export const GuardianCarouselDate = styled.span``;
+
+export const CarouselDate = styled.span``;

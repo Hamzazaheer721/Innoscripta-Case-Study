@@ -1,2 +1,2 @@
 export * from "./CarouselCard";
-export * from "./GuardianSection";
+export * from "./OthersNewsSections";

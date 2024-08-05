@@ -8,7 +8,31 @@ export class NewsApiService {
       const response = await axios.get(targetURL);
       return response?.data;
     } catch (error) {
-      console.error("Error - News Api Service  getGenericNewsData ", {
+      console.error("Error - News Api Service  getTopHeadlines ", {
+        error,
+      });
+      throw error;
+    }
+  };
+  static getTopHeadlinesSources = async () => {
+    try {
+      const targetURL = NEWS_API.getTopHeadlineSources();
+      const response = await axios.get(targetURL);
+      return response?.data;
+    } catch (error) {
+      console.error("Error - News Api Service  getTopHeadlinesSources ", {
+        error,
+      });
+      throw error;
+    }
+  };
+  static getEverything = async () => {
+    try {
+      const targetURL = NEWS_API.getEverything();
+      const response = await axios.get(targetURL);
+      return response?.data;
+    } catch (error) {
+      console.error("Error - News Api Service  getEverything ", {
         error,
       });
       throw error;
