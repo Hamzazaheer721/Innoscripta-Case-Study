@@ -1,4 +1,4 @@
-import { Carousel, Spin } from "antd";
+import { Carousel } from "antd";
 import { FC, memo } from "react";
 import {
   CarouselCardContainer,
