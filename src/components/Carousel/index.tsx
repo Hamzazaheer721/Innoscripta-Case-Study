@@ -7,13 +7,14 @@ import {
 } from "./index.styled";
 import { Carousel } from "antd";
 import { CarouselCard, GuardianSection } from "./components";
-import { memo } from "react";
-import { useCarouselSection } from "./index.hook";
+import { FC, memo } from "react";
 import { NewsArticle } from "general";
 
-const CarouselSection = memo(() => {
-  const { state } = useCarouselSection();
+interface CarouselSectionProps {
+  state: NewsArticle[];
+}
 
+const CarouselSection: FC<CarouselSectionProps> = memo(({ state }) => {
   return (
     <CarouselContainer>
       <Heading color="darkRed">Headlines</Heading>
