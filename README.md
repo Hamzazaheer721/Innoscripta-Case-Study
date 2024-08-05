@@ -2,7 +2,7 @@
 
 ## Environment Setup
 
-- **.env File**: The app requires an `.env` file to be set up as all the keys are stored there for security.
+- To configure the environment, create a `.env` file in the root directory of the project with the following content:
 - make env file and copy paste the following into the file to make the api calls work.
 
   ```sh
