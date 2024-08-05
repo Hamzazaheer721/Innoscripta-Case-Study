@@ -49,4 +49,5 @@ export interface NewsArticle {
   title: string | null;
   url: string | null;
   urlToImage: string | null;
+  noContent?: boolean;
 }

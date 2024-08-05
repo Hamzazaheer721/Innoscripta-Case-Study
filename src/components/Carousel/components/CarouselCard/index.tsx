@@ -1,4 +1,4 @@
-import { defaultURL, NewsArticle, parseDate } from "general";
+import { defaultURL, NewsArticle } from "general";
 import {
   CarouselAuthorName,
   CarouselCardContainer,
@@ -34,9 +34,7 @@ export const CarouselCard: FC<ICarouselCard> = memo(({ article }) => {
       <CarouselCardContent>{article?.content}</CarouselCardContent>
       <CarouselFooter>
         <CarouselAuthorName>{article?.author}</CarouselAuthorName>
-        <CarouselDate>
-          {parseDate(article?.publishedAt ?? new Date().toISOString())}
-        </CarouselDate>
+        <CarouselDate>{article?.publishedAt}</CarouselDate>
       </CarouselFooter>
     </CarouselCardContainer>
   );

@@ -17,7 +17,7 @@ export const GuardianContainer = styled.div`
   & > div > .ant-carousel {
     width: 100%;
   }
-  @media (${device.mobileAndBelow}) {
+  @media (${device.tabletAndBelow}) {
     min-height: unset;
   }
 
@@ -40,11 +40,17 @@ export const GuardianCarouselCardContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 2rem;
+
+  @media ${device.tabletAndBelow} {
+    gap: 1.6rem;
+    height: auto;
+  }
+
   @media ${device.mobileAndBelow} {
     justify-content: center;
     align-items: center;
     padding: 0 1rem;
-    height: 50rem;
+    height: auto;
   }
 `;
 
@@ -99,10 +105,17 @@ export const GuardianCarouselCardContent = styled.p`
   max-height: calc(
     1.2rem * 1.5 * 2
   ); /* font-size * line-height * number of lines */
+
+  @media (${device.tabletAndBelow}) {
+    text-align: center;
+    -webkit-line-clamp: 1;
+    max-height: calc(1.2rem * 1.5 * 1);
+  }
+
   @media (${device.mobileAndBelow}) {
     text-align: center;
     -webkit-line-clamp: 3;
-    max-height: calc(1.2rem * 1.5 * 4);
+    max-height: calc(1.2rem * 1.5 * 3);
   }
 `;
 export const GuardianCarouselDate = styled.span``;

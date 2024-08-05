@@ -1,14 +1,14 @@
 import styled from "styled-components";
 import { device } from "styles";
 
-export const CarouselCardContainer = styled.div`
+export const NewsCardContainer = styled.div`
   min-height: 20rem;
   line-height: 150%;
   overflow: hidden;
   border-radius: 0.6rem;
   background-color: ${({ theme }) => theme.backgroundColor.secondary};
 
-  height: 55rem;
+  height: 60rem;
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -17,9 +17,6 @@ export const CarouselCardContainer = styled.div`
 
   @media (${device.mobileAndBelow}) {
     min-height: unset;
-  }
-
-  @media (${device.desktop}) {
   }
 
   &:hover {
@@ -32,7 +29,7 @@ export const Anchor = styled.a`
   text-decoration: none;
 `;
 
-export const CarouselImg = styled.img`
+export const NewsImg = styled.img`
   aspect-ratio: 16/9;
   width: 100%;
   height: 30rem;
@@ -49,7 +46,7 @@ export const CarouselImg = styled.img`
   }
 `;
 
-export const CarouselCardTitle = styled.h4`
+export const NewsCardTitle = styled.h4`
   all: unset;
   width: 100%;
   font-weight: 600;
@@ -62,7 +59,7 @@ export const CarouselCardTitle = styled.h4`
   }
 `;
 
-export const CarouselCardContent = styled.p`
+export const NewsCardContent = styled.p`
   all: unset;
   width: 100%;
   font-weight: 400;
@@ -85,21 +82,30 @@ export const CarouselCardContent = styled.p`
   }
 `;
 
-export const CarouselFooter = styled.div`
+export const NewsFooter = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
   color: ${({ theme }) => theme.headingColor.secondary};
   font-size: 1.2rem;
   font-weight: 500;
-  align-items: center;
+  gap: 0.4rem;
   @media ${device.mobileAndBelow} {
     width: 100%;
-    flex-direction: column;
     gap: 1.2rem;
+    flex-direction: column;
+    place-items: center;
     justify-content: unset;
   }
 `;
 
-export const CarouselAuthorName = styled.span``;
-export const CarouselDate = styled.span``;
+export const NewsAuthorName = styled.span`
+  text-align: left;
+  font-weight: 500;
+  @media ${device.tabletAndBelow} {
+    text-align: center;
+  }
+`;
+export const NewsDate = styled.span`
+  font-weight: 500;
+  text-align: left;
+`;

@@ -13,6 +13,8 @@ export const Navbar = styled.nav`
 
 export const Section = styled.section`
   position: sticky;
+  top: 0;
+  z-index: 9999;
   display: flex;
   font-size: 2rem;
   padding: 2rem 4rem;

@@ -39,8 +39,8 @@ export const GlobalStyle = createGlobalStyle`
     background: #548798;
   }
 
-  @media ${device.mobileAndBelow} {
-     .ant-carousel .slick-dots {
+  @media ${device.tabletAndBelow} {
+     .ant-carousel .slick-dots-bottom {
       display: none !important;
      }
   }

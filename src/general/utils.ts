@@ -43,6 +43,7 @@ export const sanitizeData = (data: NewsArticle[]) => {
   updatedData = updatedData?.map((obj) => {
     let content = obj?.content;
 
+    let noContent = false;
     if (!content) {
       let randomIdx = getRandomNumberInRange(0, mockContent.length - 1);
       while (indices.includes(randomIdx)) {
@@ -50,6 +51,7 @@ export const sanitizeData = (data: NewsArticle[]) => {
       }
       indices.push(randomIdx);
       content = mockContent[randomIdx];
+      noContent = true;
     }
 
     content = removeBracketedContent(content);
@@ -58,6 +60,8 @@ export const sanitizeData = (data: NewsArticle[]) => {
       ...obj,
       urlToImage: obj?.urlToImage ?? defaultImageURL,
       content,
+      publishedAt: parseDate(obj?.publishedAt ?? new Date().toISOString()),
+      noContent,
     };
 
     return updatedObj;

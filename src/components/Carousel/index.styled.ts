@@ -17,15 +17,16 @@ export const ContentContainer = styled.div`
   overflow-x: hidden;
   gap: 1.5rem;
 
-  @media ${device.mobileAndBelow} {
+  @media ${device.tabletAndBelow} {
     flex-direction: column;
+    gap: 2.2rem;
   }
 `;
 
 export const CarouselWrapper = styled.div`
   width: calc(70% - 1.5rem);
 
-  @media ${device.mobileAndBelow} {
+  @media ${device.tabletAndBelow} {
     width: 100%;
     align-self: center;
   }
@@ -34,7 +35,7 @@ export const CarouselWrapper = styled.div`
 export const ContentBlockSection = styled.div`
   width: calc(30% - 1.5rem);
   flex-grow: 1;
-  @media ${device.mobileAndBelow} {
+  @media ${device.tabletAndBelow} {
     width: 100%;
     align-self: center;
   }
