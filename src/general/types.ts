@@ -51,6 +51,7 @@ export interface NewsArticle {
   url: string | null;
   urlToImage: string | null;
   noContent?: boolean;
+  category?: string;
 }
 
 export type SelectFieldHandleChangeType = (

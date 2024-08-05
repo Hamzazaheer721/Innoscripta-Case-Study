@@ -32,7 +32,10 @@ export const GUARDIAN_API = {
 };
 
 export const NY_TIMES_API = {
-  getSearchArticles: () => {
-    return `https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=${NY_TIMES_API_KEY}`;
+  getSearchArticles: (
+    beginDate: string = "20200601",
+    endDate: string = "20240805",
+  ) => {
+    return `https://api.nytimes.com/svc/search/v2/articlesearch.json?begin_date=${beginDate}&end_date=${endDate}&api-key=${NY_TIMES_API_KEY}`;
   },
 };

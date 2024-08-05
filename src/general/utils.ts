@@ -100,6 +100,67 @@ export const sanitizeTheGuardianData = (data: Record<string, any>[]) => {
   });
 };
 
+export const sanitizeNYTimesData = (data: Record<string, any>[]) => {
+  return data?.map((article, idx: number) => {
+    const imgKey = ((article?.section_name?.toLowerCase() as string) ??
+      "news") as string;
+
+    const urlToImg = (IMAGE_KEYS_URL as Record<string, string>)[
+      imgKey
+    ] as string;
+
+    const category = article?.section_name;
+
+    const title = article?.headline?.main ?? mockContent[idx];
+
+    const author = article?.byline.original ?? "Alan Donald";
+    const url = article?.web_url ?? defaultURL;
+    const source = article?.source ?? "Google News";
+    const publishedAt = parseDate(
+      article?.pub_date ?? new Date().toISOString(),
+    );
+    return {
+      urlToImg,
+      publishedAt,
+      category,
+      url,
+      title,
+      author,
+      source,
+    };
+  });
+};
+
+export const sanitizeNYTimesDataForNewsFeed = (data: Record<string, any>[]) => {
+  const updatedData = data?.map((article) => {
+    const obj = {} as Partial<NewsArticle>;
+    obj.author = article.byline.original;
+    obj.content = article.abstract;
+    obj.description = article.lead_paragraph;
+    obj.publishedAt = parseDate(article?.pub_date ?? new Date().toISOString());
+    obj.source = article.source;
+    obj.title = article.headline.main;
+    obj.url = article.web_url;
+
+    const imgExists = article?.multimedia?.find(
+      (media: any) =>
+        media.type === "image" && media.crop_name === "videoLarge",
+    );
+
+    const imgURL =
+      imgExists && imgExists?.url
+        ? `https://www.nytimes.com/${imgExists?.url}`
+        : defaultImageURL;
+
+    obj.urlToImage = imgURL;
+    obj.noContent = false;
+    obj.category = article.section_name; // Arts
+    return obj as NewsArticle;
+  });
+
+  return updatedData;
+};
+
 export const sanitizePayloadForApi = (payload: UserOperationsType) => {
   const rtnObj = {} as Record<string, string>;
   rtnObj.from = payload.dateRange.dateStrings[0];

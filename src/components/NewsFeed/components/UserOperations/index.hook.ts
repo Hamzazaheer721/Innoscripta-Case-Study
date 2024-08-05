@@ -46,8 +46,6 @@ export const useUserOperations = () => {
     return { authorOptions, sourceOptions, categoryOptions };
   }, [fullNews]);
 
-  console.info({ options });
-
   const makeApiCall = async (payload: UserOperationsType = state) => {
     const updatedPayload = sanitizePayloadForApi(payload);
     console.info({ updatedPayload });
