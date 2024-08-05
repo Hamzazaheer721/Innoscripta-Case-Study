@@ -22,6 +22,7 @@ export const InputField = styled.input`
   box-sizing: border-box;
   width: 20rem;
   height: 3.16rem;
+
   border: 1px solid #d9d9d9;
 
   &::placeholder {
