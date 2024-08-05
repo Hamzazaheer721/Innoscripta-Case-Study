@@ -16,7 +16,7 @@ export const ERROR_MESSAGES = {
 export const TOASTER_PLACEMENT = "topRight";
 
 /* Mock Testing */
-export const testing = true;
+export const testing = false;
 
 /* if api doesn't return the imgURL, this will be used as fallback image */
 export const defaultImageURL =
