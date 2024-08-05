@@ -1,7 +1,8 @@
 import { defaultImageURL, defaultURL, IMAGE_KEYS_URL } from "./constants";
 import mockContent from "assets/data/content.json";
-import { NewsArticle } from "./types";
+import { NewsArticle, Source } from "./types";
 import dayjs from "dayjs";
+import { UserOperationsType } from "components/NewsFeed/components/UserOperations/helper";
 
 export const addQueryParamsToUrl = (
   baseUrl: string,
@@ -97,4 +98,64 @@ export const sanitizeTheGuardianData = (data: Record<string, any>[]) => {
       title,
     };
   });
+};
+
+export const sanitizePayloadForApi = (payload: UserOperationsType) => {
+  const rtnObj = {} as Record<string, string>;
+  rtnObj.from = payload.dateRange.dateStrings[0];
+  rtnObj.to = payload.dateRange.dateStrings[1];
+  rtnObj.sources = payload.sourceOption as string;
+  rtnObj.q = payload.searchValue; // URL encoded
+
+  /* These params might require custom filtering */
+  rtnObj.author = payload.authorOption as string;
+  rtnObj.category = payload.categoryOption as string;
+
+  return rtnObj;
+};
+
+export const getUniqueOptions = (
+  options: {
+    label: string;
+    value: string;
+  }[],
+) => {
+  const uniqueArray: {
+    label: string;
+    value: string;
+  }[] = [];
+
+  options.forEach((option) => {
+    const alreadyExists = uniqueArray.some(
+      (option_) => option_.label === option.label,
+    );
+    if (!alreadyExists) {
+      uniqueArray.push(option);
+    }
+  });
+  return uniqueArray;
+};
+
+export const getOptions = (options: string[]) => {
+  const options_ = options?.map((option) => {
+    return {
+      label: option,
+      value: option,
+    };
+  });
+
+  return getUniqueOptions(options_);
+};
+
+export const getSourceOptions = (options: Source[]) => {
+  const options_ = options
+    ?.filter((option) => !!option.name && !!option.id)
+    ?.map((option) => {
+      return {
+        label: option.name as string,
+        value: option.id as string,
+      };
+    });
+
+  return getUniqueOptions(options_);
 };

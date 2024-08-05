@@ -17,6 +17,7 @@ export const UserOperations = memo(() => {
     state,
     searchFieldRef,
     handleClick,
+    options,
   } = useUserOperations();
 
   return (
@@ -42,11 +43,13 @@ export const UserOperations = memo(() => {
           placeholder="Search to Select Source"
           onChange={handleSourceChange}
           value={state.sourceOption}
+          options={options.sourceOptions}
         />
         <CustomSelect
           placeholder="Search to Select Author"
           onChange={handleAuthorChange}
           value={state.authorOption}
+          options={options.authorOptions}
         />
       </Container>{" "}
       <LowerContainer>

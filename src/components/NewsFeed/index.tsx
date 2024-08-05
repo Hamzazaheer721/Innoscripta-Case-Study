@@ -15,9 +15,11 @@ export const NewsFeed = memo(() => {
       <UserOperations />
       <hr style={{ marginBlock: "2rem" }} />
       <CardsWrapper>
-        {state?.map((article, idx: number) => {
-          return <NewsCard article={article} key={`news-card-${idx}`} />;
-        })}
+        {state
+          ?.filter((article) => !!article?.author)
+          ?.map((article, idx: number) => {
+            return <NewsCard article={article} key={`news-card-${idx}`} />;
+          })}
       </CardsWrapper>
       {/* Heading: User News Feed */}
       {/* User Section */}

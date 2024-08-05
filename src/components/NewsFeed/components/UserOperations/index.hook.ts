@@ -1,30 +1,99 @@
 import {
   DateRangeHandleChangeType,
   DatesType,
+  getOptions,
+  getSourceOptions,
+  sanitizePayloadForApi,
   SelectFieldHandleChangeType,
 } from "general";
-import { ChangeEvent, useRef, useState } from "react";
-import { initialUserOptionsState } from "./helper";
+import { ChangeEvent, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { initialUserOptionsState, UserOperationsType } from "./helper";
 import { InputRef } from "antd";
+import { useAppSelector } from "hooks";
 
 export const useUserOperations = () => {
-  const [state, setState] = useState(() => initialUserOptionsState);
+  const [state, setState] = useState<UserOperationsType>(
+    () => initialUserOptionsState,
+  );
 
   const searchFieldRef = useRef<InputRef>(null);
 
+  const fullNews = useAppSelector((state) => state.news.fullNews);
+
+  useLayoutEffect(() => {
+    if (!searchFieldRef.current) return;
+    if (!searchFieldRef?.current?.input) return;
+    searchFieldRef.current.input.value = "";
+  }, []);
+
+  const options = useMemo(() => {
+    const authors =
+      fullNews
+        ?.map((article) => article.author ?? "")
+        .filter((author) => !!author) ?? [];
+
+    const sources =
+      fullNews
+        ?.filter((article) => !!article?.source?.id && !!article?.source?.name)
+        ?.map((article) => article.source)
+        ?.filter((source) => !!source) ?? [];
+
+    const authorOptions = getOptions(authors);
+    const sourceOptions = getSourceOptions(sources);
+
+    return { authorOptions, sourceOptions };
+  }, [fullNews]);
+
+  console.info({ options });
+
+  const makeApiCall = async (payload: UserOperationsType = state) => {
+    const updatedPayload = sanitizePayloadForApi(payload);
+    console.info({ updatedPayload });
+    try {
+      const response = true;
+      console.info({ response });
+    } catch (error) {
+      console.error({ error });
+    }
+  };
+
   const handleCategoryChange: SelectFieldHandleChangeType = (value, option) => {
     console.info({ value, option });
+
     setState((prev) => ({ ...prev, categoryOption: value }));
+
+    const updatedState = {
+      ...state,
+      categoryOption: value,
+    };
+
+    makeApiCall(updatedState);
   };
 
   const handleSourceChange: SelectFieldHandleChangeType = (value, option) => {
     console.info({ value, option });
+
     setState((prev) => ({ ...prev, sourceOption: value }));
+
+    const updatedState = {
+      ...state,
+      sourceOption: value,
+    };
+
+    makeApiCall(updatedState);
   };
 
   const handleAuthorChange: SelectFieldHandleChangeType = (value, option) => {
     console.info({ value, option });
+
     setState((prev) => ({ ...prev, authorOption: value }));
+
+    const updatedState = {
+      ...state,
+      authorOption: value,
+    };
+
+    makeApiCall(updatedState);
   };
 
   /* Gives dates in string */
@@ -36,17 +105,31 @@ export const useUserOperations = () => {
       dates: dates as DatesType,
       dateStrings: dateStrings as [string, string],
     };
+
     setState((prev) => ({ ...prev, dateRange: updatedDate }));
+
+    const updatedState = {
+      ...state,
+      dateRange: updatedDate,
+    };
+
+    makeApiCall(updatedState);
   };
 
   const handleKeywordChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
 
-    console.info({ value: searchFieldRef.current?.input?.value });
     setState((prev) => ({
       ...prev,
       searchValue: value,
     }));
+
+    const updatedState = {
+      ...state,
+      searchValue: value,
+    };
+
+    makeApiCall(updatedState);
   };
 
   const handleClick = () => {
@@ -56,6 +139,7 @@ export const useUserOperations = () => {
     setState(() => ({
       ...initialUserOptionsState,
     }));
+    makeApiCall();
   };
 
   return {
@@ -67,5 +151,6 @@ export const useUserOperations = () => {
     state,
     searchFieldRef,
     handleClick,
+    options,
   };
 };

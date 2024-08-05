@@ -28,11 +28,14 @@ const NewsReducer: Reducer<NewsReducerType, NewsActions> = (
         ...action.payload,
         loaders: state.loaders,
       };
-    case NewsActionType.SET_FULL_NEWS:
+    case NewsActionType.SET_FULL_NEWS: {
+      const fullNews =
+        action.payload?.filter((article) => !!article?.author) ?? null;
       return {
         ...state,
-        fullNews: action.payload,
+        fullNews: fullNews,
       };
+    }
     case NewsActionType.SET_CAROUSEL_NEWS:
       return {
         ...state,
