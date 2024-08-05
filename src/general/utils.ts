@@ -242,3 +242,13 @@ export const getCategoryOptions = () => {
     value: category,
   }));
 };
+
+export const getFormattedDates = (dateStrings: [string, string]) => {
+  const startDate = dayjs(dateStrings[0]);
+  const endDate = dayjs(dateStrings[1]);
+
+  return {
+    startDate,
+    endDate,
+  };
+};

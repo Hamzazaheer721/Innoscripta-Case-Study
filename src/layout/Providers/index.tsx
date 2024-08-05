@@ -8,6 +8,7 @@ import { queryClient } from "lib";
 import { Provider } from "react-redux";
 import { persistor, store } from "redux/store";
 import { PersistGate } from "redux-persist/integration/react";
+import { NotificationProvider } from "context/toaster.context";
 
 export const Providers: FC<IProvidersProps> = ({ children }) => (
   <ErrorBoundry>
@@ -15,9 +16,11 @@ export const Providers: FC<IProvidersProps> = ({ children }) => (
       <GlobalStyle />
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-          <QueryClientProvider client={queryClient}>
-            {children}
-          </QueryClientProvider>
+          <NotificationProvider>
+            <QueryClientProvider client={queryClient}>
+              {children}
+            </QueryClientProvider>
+          </NotificationProvider>
         </PersistGate>
       </Provider>
     </ThemeProvider>

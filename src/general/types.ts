@@ -71,3 +71,11 @@ export type DateRangeHandleChangeType = (
   dates: DatesType,
   dateStrings: [string, string],
 ) => void;
+
+export type NotificationType =
+  | "destroy"
+  | "error"
+  | "info"
+  | "open"
+  | "success"
+  | "warning";

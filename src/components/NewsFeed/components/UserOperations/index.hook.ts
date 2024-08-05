@@ -1,10 +1,13 @@
 import {
   DateRangeHandleChangeType,
   DatesType,
+  ERROR_MESSAGES,
+  getFormattedDates,
   getOptions,
   getSourceOptions,
   NewsArticle,
   SelectFieldHandleChangeType,
+  TOASTER_PLACEMENT,
 } from "general";
 import {
   ChangeEvent,
@@ -19,18 +22,19 @@ import { initialUserOptionsState, UserOperationsType } from "./helper";
 import { useAppDispatch, useAppSelector } from "hooks";
 import { cloneDeep, debounce } from "lodash";
 import { setFilteredNews } from "redux/actions/newsActions";
+import dayjs from "dayjs";
+import { useNotification } from "context/toaster.context";
 
 export const useUserOperations = () => {
   const [state, setState] = useState<UserOperationsType>(
     () => initialUserOptionsState,
   );
+  const { openErrorNotification } = useNotification();
 
   const searchFieldRef = useRef<HTMLInputElement>(null);
 
   const fullNews = useAppSelector((state) => state.news.fullNews);
-  const filteredNews = useAppSelector((state) => state.news.filteredNews);
 
-  console.info({ filteredNews });
   const dispatch = useAppDispatch();
 
   useLayoutEffect(() => {
@@ -76,7 +80,14 @@ export const useUserOperations = () => {
 
       if (!draft) return;
 
-      const { searchValue } = updatedState;
+      const {
+        searchValue,
+        sourceOption,
+        categoryOption,
+        authorOption,
+        dateRange: { dateStrings },
+      } = updatedState;
+
       if (searchValue) {
         draft = draft?.filter(
           (article) =>
@@ -89,14 +100,51 @@ export const useUserOperations = () => {
         );
       }
 
+      if (sourceOption) {
+        draft = draft.filter(
+          (article) =>
+            (sourceOption as string)?.toLowerCase().trim() ===
+            (article?.source as string)?.toLowerCase().trim(),
+        );
+      }
+
+      if (categoryOption) {
+        draft = draft.filter(
+          (article) =>
+            (categoryOption as string)?.toLowerCase().trim() ===
+            (article?.category as string)?.toLowerCase().trim(),
+        );
+      }
+
+      if (authorOption) {
+        draft = draft.filter(
+          (article) =>
+            (authorOption as string)?.toLowerCase().trim() ===
+            (article?.author as string)?.toLowerCase().trim(),
+        );
+      }
+
+      if (!!dateStrings[0] && !!dateStrings[1]) {
+        const { endDate, startDate } = getFormattedDates(dateStrings);
+
+        draft = draft.filter((article) => {
+          const targetDate = dayjs(article.publishedAt, "MMMM D, YYYY h:mm A");
+
+          const isInRange =
+            targetDate.isSame(startDate) ||
+            targetDate.isSame(endDate) ||
+            (targetDate.isAfter(startDate) && targetDate.isBefore(endDate));
+
+          return isInRange;
+        });
+      }
+
       setFilteredNamesGlobally(draft);
     },
     [state, fullNews],
   );
 
-  const handleCategoryChange: SelectFieldHandleChangeType = (value, option) => {
-    console.info({ value, option });
-
+  const handleCategoryChange: SelectFieldHandleChangeType = (value) => {
     setState((prev) => ({ ...prev, categoryOption: value }));
 
     const updatedState = {
@@ -106,9 +154,7 @@ export const useUserOperations = () => {
     filterGlobalState(updatedState);
   };
 
-  const handleSourceChange: SelectFieldHandleChangeType = (value, option) => {
-    console.info({ value, option });
-
+  const handleSourceChange: SelectFieldHandleChangeType = (value) => {
     setState((prev) => ({ ...prev, sourceOption: value }));
 
     const updatedState = {
@@ -118,9 +164,7 @@ export const useUserOperations = () => {
     filterGlobalState(updatedState);
   };
 
-  const handleAuthorChange: SelectFieldHandleChangeType = (value, option) => {
-    console.info({ value, option });
-
+  const handleAuthorChange: SelectFieldHandleChangeType = (value) => {
     setState((prev) => ({ ...prev, authorOption: value }));
 
     const updatedState = {
@@ -130,7 +174,29 @@ export const useUserOperations = () => {
     filterGlobalState(updatedState);
   };
 
-  /* Gives dates in string */
+  const validateDateRange = useCallback(
+    (dateStrings: [string, string]) => {
+      const { endDate, startDate } = getFormattedDates(dateStrings);
+
+      if (startDate.isAfter(endDate)) {
+        openErrorNotification(
+          ERROR_MESSAGES.START_DATE_AFTER_END_DATE,
+          TOASTER_PLACEMENT,
+        );
+        return;
+      }
+
+      if (endDate.isBefore(startDate)) {
+        openErrorNotification(
+          ERROR_MESSAGES.END_DATE_BEFORE_START_DATE,
+          TOASTER_PLACEMENT,
+        );
+        return;
+      }
+    },
+    [openErrorNotification],
+  );
+
   const handleDateRangeChange: DateRangeHandleChangeType = (
     dates,
     dateStrings,
@@ -139,6 +205,8 @@ export const useUserOperations = () => {
       dates: dates as DatesType,
       dateStrings: dateStrings as [string, string],
     };
+
+    validateDateRange(dateStrings);
 
     setState((prev) => ({ ...prev, dateRange: updatedDate }));
 
@@ -149,25 +217,31 @@ export const useUserOperations = () => {
     filterGlobalState(updatedState);
   };
 
-  const handleKeywordChange = debounce((e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
+  const handleKeywordChange = debounce(
+    useCallback(
+      (e: ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
 
-    setState((prev) => ({
-      ...prev,
-      searchValue: value,
-    }));
+        setState((prev) => ({
+          ...prev,
+          searchValue: value,
+        }));
 
-    const updatedState = {
-      ...state,
-      searchValue: value,
-    };
+        const updatedState = {
+          ...state,
+          searchValue: value,
+        };
 
-    if (!value) {
-      return;
-    }
+        if (!value) {
+          return;
+        }
 
-    filterGlobalState(updatedState);
-  }, 800);
+        filterGlobalState(updatedState);
+      },
+      [state, fullNews],
+    ),
+    800,
+  );
 
   const handleClick = () => {
     if (searchFieldRef?.current) {

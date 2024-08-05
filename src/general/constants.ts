@@ -6,6 +6,15 @@ export const THE_GUARDIAN_API_KEY = import.meta.env.VITE_APP_GUARDIAN_API_KEY;
 
 export const NY_TIMES_API_KEY = import.meta.env.VITE_APP_NY_TIMES_API_KEY;
 
+/* Error Messages */
+
+export const ERROR_MESSAGES = {
+  START_DATE_AFTER_END_DATE: "Start date is after End date",
+  END_DATE_BEFORE_START_DATE: "End Date is before the Start Date",
+};
+
+export const TOASTER_PLACEMENT = "topRight";
+
 /* Mock Testing */
 export const testing = true;
 
