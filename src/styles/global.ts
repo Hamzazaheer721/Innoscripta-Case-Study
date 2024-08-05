@@ -19,7 +19,7 @@ export const GlobalStyle = createGlobalStyle`
     font-family: sans-serif;
     box-sizing: border-box; 
     line-height: 1.7;
-    font-weight: 400;
+    font-weight: 400
   }
   
   .ant-carousel .slick-prev, 
@@ -44,4 +44,21 @@ export const GlobalStyle = createGlobalStyle`
       display: none !important;
      }
   }
+  
+  &::-webkit-scrollbar {
+      width: 1rem;
+      height: 1rem;
+      color: transparent;
+  }
+  
+  &::-webkit-scrollbar-track {
+      background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+      background: #757575; 
+      border-radius: 1.2rem;
+
+  }
+  
 `;
