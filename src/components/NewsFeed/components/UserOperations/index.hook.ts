@@ -163,12 +163,11 @@ export const useUserOperations = () => {
     };
 
     if (!value) {
-      resetFullNamesGlobally();
       return;
     }
 
     filterGlobalState(updatedState);
-  }, 1000);
+  }, 800);
 
   const handleClick = () => {
     if (searchFieldRef?.current) {

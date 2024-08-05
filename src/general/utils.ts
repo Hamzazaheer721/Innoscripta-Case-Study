@@ -135,6 +135,8 @@ export const sanitizeNYTimesDataForNewsFeed = (data: Record<string, any>[]) => {
   const updatedData = data?.map((article, idx: number) => {
     const obj = {} as Partial<NewsArticle>;
     obj.author = article?.byline?.original ?? "Adam ";
+    obj.author = obj.author?.replace("By", "");
+
     obj.content = article?.abstract ?? mockContent[idx];
     obj.description = article?.lead_paragraph ?? mockContent[idx];
     obj.publishedAt = parseDate(article?.pub_date ?? new Date().toISOString());
