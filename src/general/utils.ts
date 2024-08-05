@@ -145,7 +145,7 @@ export const sanitizeNYTimesDataForNewsFeed = (data: Record<string, any>[]) => {
     obj.url = article.web_url ?? defaultURL;
 
     const imgExists = article?.multimedia?.find(
-      (media: any) =>
+      (media: Record<string, any>) =>
         media.type === "image" && media.crop_name === "videoLarge",
     );
 

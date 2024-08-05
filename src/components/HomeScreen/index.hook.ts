@@ -1,5 +1,6 @@
 import { mockNewsAPIData, mockNYTimesData } from "assets/mock/mockData";
 import {
+  DataTypeWithOrWithoutAxios,
   NewsArticle,
   sanitizeData,
   sanitizeNYTimesDataForNewsFeed,
@@ -31,7 +32,8 @@ export const useHomeScreen = () => {
     try {
       startLoading();
 
-      let data_: any, nyData_: any;
+      let data_: DataTypeWithOrWithoutAxios,
+        nyData_: DataTypeWithOrWithoutAxios;
 
       if (testing) {
         data_ = { ...mockNewsAPIData };

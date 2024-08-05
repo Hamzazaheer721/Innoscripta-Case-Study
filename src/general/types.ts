@@ -67,6 +67,8 @@ export type SelectOptionType = {
 
 export type DatesType = any | null;
 
+export type DataTypeWithOrWithoutAxios = any;
+
 export type DateRangeHandleChangeType = (
   dates: DatesType,
   dateStrings: [string, string],
