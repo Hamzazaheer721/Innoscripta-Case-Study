@@ -132,15 +132,15 @@ export const sanitizeNYTimesData = (data: Record<string, any>[]) => {
 };
 
 export const sanitizeNYTimesDataForNewsFeed = (data: Record<string, any>[]) => {
-  const updatedData = data?.map((article) => {
+  const updatedData = data?.map((article, idx: number) => {
     const obj = {} as Partial<NewsArticle>;
-    obj.author = article.byline.original;
-    obj.content = article.abstract;
-    obj.description = article.lead_paragraph;
+    obj.author = article?.byline?.original ?? "Adam ";
+    obj.content = article?.abstract ?? mockContent[idx];
+    obj.description = article?.lead_paragraph ?? mockContent[idx];
     obj.publishedAt = parseDate(article?.pub_date ?? new Date().toISOString());
-    obj.source = article.source;
-    obj.title = article.headline.main;
-    obj.url = article.web_url;
+    obj.source = article?.source ?? "Google News";
+    obj.title = article?.headline?.main ?? "";
+    obj.url = article.web_url ?? defaultURL;
 
     const imgExists = article?.multimedia?.find(
       (media: any) =>
@@ -154,7 +154,7 @@ export const sanitizeNYTimesDataForNewsFeed = (data: Record<string, any>[]) => {
 
     obj.urlToImage = imgURL;
     obj.noContent = false;
-    obj.category = article.section_name; // Arts
+    obj.category = article.section_name ?? "Arts"; // Arts
     return obj as NewsArticle;
   });
 

@@ -19,18 +19,12 @@ export const useHomeScreen = () => {
     dispatch(setNewsState(payload));
 
   const getNYTimesGenericData = async () => {
-    const testing = true;
     try {
-      if (testing) {
-        const data = { ...mockNYTimesData };
-        return data;
-      } else {
-        const data = await NewYorkTimesService.getGenericNewsData();
-        console.info({ data });
-      }
+      const response = await NewYorkTimesService.getGenericNewsData();
+      return response.data;
     } catch (error) {
       console.error({ error });
-      return [];
+      return {};
     }
   };
 
@@ -41,11 +35,11 @@ export const useHomeScreen = () => {
       let data_: any, nyData_: any;
 
       if (testing) {
-        data_ = await NewsApiService.getTopHeadlines();
-        nyData_ = await getNYTimesGenericData();
-      } else {
         data_ = { ...mockNewsAPIData };
         nyData_ = { ...mockNYTimesData };
+      } else {
+        data_ = await NewsApiService.getTopHeadlines();
+        nyData_ = await getNYTimesGenericData();
       }
 
       if (!data_ || !data_?.articles) return;
@@ -54,11 +48,13 @@ export const useHomeScreen = () => {
 
       const data = sanitizeData(data_?.articles as NewsArticle[]);
 
-      const nyData = sanitizeNYTimesDataForNewsFeed(nyData_?.response?.docs);
+      nyData_ = nyData_?.response?.docs;
+
+      const nyData = sanitizeNYTimesDataForNewsFeed(nyData_);
       const updatedState: NewsReducerType = {
         loaders,
         carouselNews: data.slice(0, 4),
-        fullNews: nyData,
+        fullNews: structuredClone(nyData),
       };
       setDataIntoGlobalState(updatedState);
     } catch (error) {
