@@ -49,6 +49,15 @@ export const useUserOperations = () => {
     }));
   };
 
+  const handleClick = () => {
+    if (searchFieldRef?.current?.input) {
+      searchFieldRef.current.input.value = "";
+    }
+    setState(() => ({
+      ...initialUserOptionsState,
+    }));
+  };
+
   return {
     handleAuthorChange,
     handleCategoryChange,
@@ -57,5 +66,6 @@ export const useUserOperations = () => {
     handleKeywordChange,
     state,
     searchFieldRef,
+    handleClick,
   };
 };

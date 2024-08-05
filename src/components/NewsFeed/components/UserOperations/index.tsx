@@ -1,7 +1,7 @@
 /* eslint-disable no-constant-condition */
-import { DatePicker, Input } from "antd";
+import { Button, DatePicker, Input } from "antd";
 import { memo } from "react";
-import { Container } from "./index.styled";
+import { Container, LowerContainer, OuterContainer } from "./index.styled";
 import { CustomSelect } from "components/Select";
 import { useUserOperations } from "./index.hook";
 
@@ -16,36 +16,44 @@ export const UserOperations = memo(() => {
     handleKeywordChange,
     state,
     searchFieldRef,
+    handleClick,
   } = useUserOperations();
 
   return (
-    <Container>
-      <Input
-        placeholder="Search a keyword"
-        onChange={handleKeywordChange}
-        value={state.searchValue}
-        ref={searchFieldRef}
-      />
-      <RangePicker
-        showTime
-        onChange={handleDateRangeChange}
-        value={state.dateRange.dates}
-      />
-      <CustomSelect
-        placeholder="Search to Select Category"
-        onChange={handleCategoryChange}
-        value={state.categoryOption}
-      />
-      <CustomSelect
-        placeholder="Search to Select Source"
-        onChange={handleSourceChange}
-        value={state.sourceOption}
-      />
-      <CustomSelect
-        placeholder="Search to Select Author"
-        onChange={handleAuthorChange}
-        value={state.authorOption}
-      />
-    </Container>
+    <OuterContainer>
+      <Container>
+        <Input
+          placeholder="Search a keyword"
+          onChange={handleKeywordChange}
+          value={state.searchValue}
+          ref={searchFieldRef}
+        />
+        <RangePicker
+          showTime
+          onChange={handleDateRangeChange}
+          value={state.dateRange.dates}
+        />
+        <CustomSelect
+          placeholder="Search to Select Category"
+          onChange={handleCategoryChange}
+          value={state.categoryOption}
+        />
+        <CustomSelect
+          placeholder="Search to Select Source"
+          onChange={handleSourceChange}
+          value={state.sourceOption}
+        />
+        <CustomSelect
+          placeholder="Search to Select Author"
+          onChange={handleAuthorChange}
+          value={state.authorOption}
+        />
+      </Container>{" "}
+      <LowerContainer>
+        <Button type="primary" danger onClick={handleClick}>
+          Reset All Filters
+        </Button>
+      </LowerContainer>
+    </OuterContainer>
   );
 });

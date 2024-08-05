@@ -1,8 +1,17 @@
 import styled from "styled-components";
 import { device } from "styles";
 
-export const Container = styled.div`
+export const LowerContainer = styled.div`
   margin-top: 2rem;
+  width: 100%;
+  text-align: right;
+`;
+
+export const OuterContainer = styled.div`
+  margin-top: 2rem;
+`;
+
+export const Container = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
