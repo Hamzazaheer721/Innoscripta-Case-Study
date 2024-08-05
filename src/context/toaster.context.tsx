@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useMemo, ReactNode } from "react";
+import { createContext, useContext, useMemo, ReactNode, FC } from "react";
 import { notification } from "antd";
 import type { NotificationArgsProps } from "antd";
 
@@ -20,9 +20,7 @@ const NotificationContext = createContext<NotificationContextType | undefined>(
   undefined,
 );
 
-const NotificationProvider: React.FC<{ children: ReactNode }> = ({
-  children,
-}) => {
+const NotificationProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [api, contextHolder] = notification.useNotification();
 
   const openErrorNotification = (

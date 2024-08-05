@@ -232,10 +232,6 @@ export const useUserOperations = () => {
           searchValue: value,
         };
 
-        if (!value) {
-          return;
-        }
-
         filterGlobalState(updatedState);
       },
       [state, fullNews],

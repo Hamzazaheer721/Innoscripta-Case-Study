@@ -65,6 +65,11 @@ export const Container = styled.div`
     .ant-picker-range {
       width: 100%;
     }
+
+    & > ${InputField} {
+      width: 100%;
+    }
+
     .ant-input {
       width: 100%;
     }
