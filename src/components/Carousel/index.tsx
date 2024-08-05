@@ -9,12 +9,18 @@ import { Carousel } from "antd";
 import { CarouselCard, GuardianSection } from "./components";
 import { FC, memo } from "react";
 import { NewsArticle } from "general";
+import { useAppLoader } from "hooks";
+import { Loader } from "components/Loader";
 
 interface CarouselSectionProps {
   state: NewsArticle[];
 }
 
 const CarouselSection: FC<CarouselSectionProps> = memo(({ state }) => {
+  const { loaders } = useAppLoader();
+
+  if (loaders.appLoader) return <Loader />;
+
   return (
     <CarouselContainer>
       <Heading color="darkRed">Headlines</Heading>
