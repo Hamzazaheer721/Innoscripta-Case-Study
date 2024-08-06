@@ -16,7 +16,6 @@ export const InputField = styled.input`
   outline: none;
   color: ${({ theme }) => theme.headingColor.secondary};
   font-size: 1.4rem;
-  /* padding: 2rem; */
   padding: 0.2rem 2rem;
   border-radius: 0.6rem;
   box-sizing: border-box;

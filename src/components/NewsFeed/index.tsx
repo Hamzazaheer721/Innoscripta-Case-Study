@@ -21,9 +21,6 @@ export const NewsFeed = memo(() => {
             return <NewsCard article={article} key={`news-card-${idx}`} />;
           })}
       </CardsWrapper>
-      {/* Heading: User News Feed */}
-      {/* User Section */}
-      {/* Cards Section */}
     </Container>
   );
 });
